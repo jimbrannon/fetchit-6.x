@@ -1,0 +1,81 @@
+<?php
+// $Id$
+
+/*
+ * implementation of hook_install()
+ */
+function fetchit2_install() {
+	// create tables
+	drupal_install_schema('fetchit2');
+}
+
+/*
+ * implementation of hook_uninstall()
+ */
+function fetchit2_uninstall() {
+	// remove tables
+	drupal_uninstall_schema('fetchit2');
+}
+
+/*
+ * implementation of hook_schema()
+ */
+function fetchit2_schema() {
+	$schema['fetchit2_page_content'] = array(
+		'description' => t(''),
+		'fields' => array(
+			'page_index' => array(
+				'type' => 'int',
+				'not null' => TRUE,
+				'default' => 0,
+				'description' => t('A unique integer record index'),
+			),
+			'fetchit2_page_type' => array(
+				'type' => 'int',
+				'not null' => TRUE,
+				'default' => 0,
+				'description' => t('The index of the fetchit2 content type'),
+			),
+			'fetchit2_page_nid' => array(
+				'type' => 'int',
+				'not null' => TRUE,
+				'default' => 0,
+				'description' => t('The {node}.id of the node containing the parameters of this content'),
+			),
+	),
+		'primary key' => array('page_index'),
+		'indexes' => array(
+			'page_index' => array('page_index'),
+		),
+	);
+	/*
+	$schema['fetchit2_block_content'] = array(
+		'description' => t(''),
+		'fields' => array(
+			'delta' => array(
+				'type' => 'int',
+				'not null' => TRUE,
+				'default' => 0,
+				'description' => t('A unique integer record index'),
+			),
+			'fetchit2_block_type' => array(
+				'type' => 'int',
+				'not null' => TRUE,
+				'default' => 0,
+				'description' => t('The index of the fetchit2 content type'),
+			),
+			'fetchit2_block_nid' => array(
+				'type' => 'int',
+				'not null' => TRUE,
+				'default' => 0,
+				'description' => t('The {node}.id of the node containing the parameters of this content'),
+			),
+	),
+		'primary key' => array('delta'),
+		'indexes' => array(
+			'delta' => array('delta'),
+		),
+	);
+	*/
+	return $schema;
+}
