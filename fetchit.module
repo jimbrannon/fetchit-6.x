@@ -1575,22 +1575,23 @@ function fetchit_table_edit_form_builder(&$form_state,$form_id,$args) {
 		$form['field_types'][$field_ndx] = array('#type' => 'value','#value' => $field_types[$field_ndx]);
 		for ($row_ndx = 0; $row_ndx < $row_count; $row_ndx++) {
 			//create the appropriate form element
+			$element_name = fetchit_make_element_name($nid,$row_ndx,$field_ndx);
 			if ($uid_field_now) { //the drupal user id field
 				if($itsarealrecord) {
 					$db_value = fetchit_get_data($err,$db_type,$db_data_object,$row_ndx,$field_ndx);
-					$form['uid_field'][$row_ndx] = array('#type' => 'value','#value' => $db_value);
+					$form['uid_field'][$element_name] = array('#type' => 'value','#value' => $db_value);
 				} else {
 					global $user;
 					$user_uid = $user->uid;
-					$form['uid_field'][$row_ndx] = array('#type' => 'value','#value' => $user_uid);
+					$form['uid_field'][$element_name] = array('#type' => 'value','#value' => $user_uid);
 				}
 			} elseif ($key_field_now) { // the unique key field
 				if($itsarealrecord) {
 					$db_value = fetchit_get_data($err,$db_type,$db_data_object,$row_ndx,$field_ndx);
-					$form['key_field'][$row_ndx] = array('#type' => 'value','#value' => $db_value);
+					$form['key_field'][$element_name] = array('#type' => 'value','#value' => $db_value);
 				} else {
 					$default_key = -999;
-					$form['key_field'][$row_ndx] = array('#type' => 'value','#value' => $default_key);
+					$form['key_field'][$element_name] = array('#type' => 'value','#value' => $default_key);
 				}
 			} else { // something editable
 				$element_name = fetchit_make_element_name($nid,$row_ndx,$field_ndx);
@@ -1734,7 +1735,8 @@ function fetchit_table_edit_submit($form, &$form_state) {
 				// this is where i need some new logic
 				// the element_name is based on original order
 				// and this is based on new order
-				$val_str .= fetchit_make_val_str($form['key_field'][$row_ndx]['#value'],"integer");
+				#$val_str .= fetchit_make_val_str($form['key_field'][$row_ndx]['#value'],"integer");
+				$val_str .= fetchit_make_val_str($form['key_field'][$element_name]['#value'],"integer");
 			} else {
 				$control_type = $form[$element_name]['#type']; 
 				$disabled = $form[$element_name]['#disabled']; 
