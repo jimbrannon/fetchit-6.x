@@ -1594,7 +1594,6 @@ function fetchit_table_edit_form_builder(&$form_state,$form_id,$args) {
 					$form['key_field'][$element_name] = array('#type' => 'value','#value' => $default_key);
 				}
 			} else { // something editable
-				$element_name = fetchit_make_element_name($nid,$row_ndx,$field_ndx);
 				// get the user entered data for this field
 				$user_field_ndx = 0;
 				for ($i=0; $i<F_DR_GRID_FIELD_LIST_COUNT; $i++) {
@@ -1732,9 +1731,6 @@ function fetchit_table_edit_submit($form, &$form_state) {
 				$user_uid = $user->uid;
 				$val_str .= fetchit_make_val_str($user_uid,"integer");
 			} elseif ($field_ndx == ($key_field_ndx-1)) {
-				// this is where i need some new logic
-				// the element_name is based on original order
-				// and this is based on new order
 				#$val_str .= fetchit_make_val_str($form['key_field'][$row_ndx]['#value'],"integer");
 				$val_str .= fetchit_make_val_str($form['key_field'][$element_name]['#value'],"integer");
 			} else {
