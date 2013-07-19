@@ -970,8 +970,7 @@ function fetchit_table_html_form_builder(&$form_state,$form_id,$args) {
 	 * redefine the arguments from the args array
 	 * (&$form_state, $nid, $type) 
 	 */
-	$nid = $args[0];
-	$form['nid'] = array('#type' => 'value','#value' => $nid);
+	$nid = $args[0];	$form['nid'] = array('#type' => 'value','#value' => $nid);
 	/*
 	 * create the form fieldset
 	 */
@@ -1732,6 +1731,9 @@ function fetchit_table_edit_submit($form, &$form_state) {
 				$user_uid = $user->uid;
 				$val_str .= fetchit_make_val_str($user_uid,"integer");
 			} elseif ($field_ndx == ($key_field_ndx-1)) {
+				// this is where i need some new logic
+				// the element_name is based on original order
+				// and this is based on new order
 				$val_str .= fetchit_make_val_str($form['key_field'][$row_ndx]['#value'],"integer");
 			} else {
 				$control_type = $form[$element_name]['#type']; 
